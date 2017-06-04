@@ -1,6 +1,6 @@
 
 def main():
-	with open ("scriptie201601.txt") as tweets:
+	with open ("scriptie2016.txt") as tweets:
 		for line in tweets:
 			line = line.rstrip()
 			l = line.split("\t")
