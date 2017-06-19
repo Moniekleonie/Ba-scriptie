@@ -15,6 +15,7 @@ from sklearn.metrics import precision_recall_fscore_support
 from sklearn import metrics
 from sklearn import svm
 from sklearn.model_selection import KFold
+from sklearn.metrics import confusion_matrix
 
 
 
@@ -52,7 +53,6 @@ def tokenizeTweets(tweet):
 
 def ngramschar(tweet):
 	t = tweet.split(' ')
-	ngram_vectorizer = CountVectorizer(analyzer='char_wb', ngram_range=(3, 6), min_df=1)
 	counts = ngram_vectorizer.fit_transform(t)
 	ngramschar = ngram_vectorizer.get_feature_names()
 
@@ -161,6 +161,9 @@ def evaluate(Y_test,Yguess):
 	
 	print("accurancy: ",accuracy_score(Y_test, Yguess))
 
+def confusionMatrix (Y_test,Yguess):
+	print("===== confusion matrix =====")
+	print(confusion_matrix(Y_test, Yguess))
 	
 
 def classifier(X_train,X_test,Y_train):
@@ -201,6 +204,7 @@ def main():
 		X_test,Y_test = readTweets("testset.txt")
 		Yguess = classifier(X_train,X_test,Y_train)
 		evaluate(Y_test,Yguess)
+		confusionMatrix(Y_test,Yguess)
 	elif goal == "gemeenteresults":
 		gemeentefile = open('gemeenteresults.txt', 'w')
 		gemeentefile.write('{0:45} {1:10} {2:10} {3:10} {4:10} {5}'.format('XX','neutral','positive','negative','both', '\n'))
